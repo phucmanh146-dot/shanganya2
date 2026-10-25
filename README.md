@@ -10,6 +10,7 @@
 - 输入预算、人数、口味；选择三个主题方向投票。
 - 展示本地投票比例、领先结果及邀请文案。
 - `mcp-client.mjs` 提供 Node.js 20+ MCP 初始化和 `tools/list` 动态发现脚本。
+- `worker.js` + `wrangler.toml` 提供独立 Cloudflare Worker 网关，处理服务端 MCP 鉴权、CORS 预检和工具发现；部署步骤见 [WORKER_DEPLOY.md](WORKER_DEPLOY.md)。
 
 ## 尚未实现 / 不得误称为完成
 - 官方麦当劳 MCP 的成功鉴权和真实优惠计价：**尚未验证成功**，此前诊断返回 HTTP 403。
