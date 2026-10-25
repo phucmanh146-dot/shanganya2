@@ -1,0 +1,9 @@
+name = "maimai-buddy-mcp"
+main = "worker.js"
+compatibility_date = "2026-10-25"
+workers_dev = true
+
+[vars]
+MCD_MCP_ENDPOINT = "https://mcp.mcd.cn"
+# Set APP_ORIGIN to your public frontend origin before production, e.g. https://your-site.pages.dev
+APP_ORIGIN = "*"
