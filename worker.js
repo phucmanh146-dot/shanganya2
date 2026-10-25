@@ -57,8 +57,6 @@ export default {
       "access-control-max-age": "86400",
       "vary": "Origin"
     }});
-    if (allowedOrigin !== "*" && origin !== allowedOrigin) return json({ ok: false, error: "Origin not allowed" }, 403, corsOrigin);
-
     if (url.pathname === "/api/health" && request.method === "GET") {
       return json({ ok: true, service: "maimai-buddy-worker", mcpConfigured: Boolean(env.MCD_MCP_TOKEN) }, 200, corsOrigin);
     }
@@ -78,7 +76,7 @@ export default {
       } catch (error) {
         const upstreamStatus = Number(error.status || 0);
         const status = upstreamStatus === 401 || upstreamStatus === 403 ? 502 : 502;
-        return json({ ok: false, error: String(error.message || error),
+        return json({ ok: false, error: String(error.message || error), upstreamStatus: upstreamStatus || null,
           hint: upstreamStatus === 403
             ? "Cloudflare Worker is reachable, but the official MCP denied the credential/account. Verify token validity, account permission, and the official endpoint; a proxy cannot grant access."
             : "Check the Cloudflare secret, endpoint, network and MCP protocol response."
