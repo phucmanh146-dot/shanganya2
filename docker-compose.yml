@@ -1,0 +1,16 @@
+services:
+  maimai-buddy:
+    build: .
+    container_name: maimai-buddy
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      MCD_MCP_ENDPOINT: ${MCD_MCP_ENDPOINT:-https://mcp.mcd.cn}
+      MCD_MCP_TOKEN: ${MCD_MCP_TOKEN:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
